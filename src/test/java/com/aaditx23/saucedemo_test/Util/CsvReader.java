@@ -1,7 +1,6 @@
 package com.aaditx23.saucedemo_test.Util;
 
 import com.aaditx23.saucedemo_test.DTO.LoginDto;
-import com.aaditx23.saucedemo_test.DTO.UserType;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;

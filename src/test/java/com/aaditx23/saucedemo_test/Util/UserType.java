@@ -1,4 +1,4 @@
-package com.aaditx23.saucedemo_test.DTO;
+package com.aaditx23.saucedemo_test.Util;
 
 public enum UserType {
     STANDARD,

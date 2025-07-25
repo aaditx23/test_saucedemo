@@ -1,9 +1,11 @@
 package com.aaditx23.saucedemo_test.Test;
 
 import com.aaditx23.saucedemo_test.DTO.LoginDto;
-import com.aaditx23.saucedemo_test.DTO.UserType;
+import com.aaditx23.saucedemo_test.Util.UserType;
 import com.aaditx23.saucedemo_test.POM.LoginPage;
 import com.aaditx23.saucedemo_test.Util.CsvReader;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
@@ -26,5 +28,11 @@ public class StandardUserFlowTest {
     public void standardUserFlow(){
         LoginPage loginPage = new LoginPage(driver);
         loginPage.login(data.get(UserType.STANDARD));
+        Assertions.assertFalse(loginPage.hasError());
+    }
+
+    @AfterEach
+    public void teardown(){
+        driver.quit();
     }
 }
