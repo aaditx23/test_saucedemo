@@ -1,5 +1,7 @@
 package com.aaditx23.saucedemo_test.Util;
 
+import com.aaditx23.saucedemo_test.DTO.LoginDto;
+import com.aaditx23.saucedemo_test.DTO.UserType;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -16,7 +18,7 @@ public class CsvReader {
     private static Map<String, String> readCsvAsMap(){
         Map<String, String> map = new HashMap<>();
 
-        try(Reader reader = Files.newBufferedReader(Paths.get("src/test/resources/data.csv"))){
+        try(Reader reader = Files.newBufferedReader(Paths.get("src/test/resources/credentials.csv"))){
             CSVParser parser = new CSVParser(reader, CSVFormat.DEFAULT);
 
             for(CSVRecord record: parser){
@@ -33,7 +35,20 @@ public class CsvReader {
 
     }
 
-    public static Map<String, String> getCsvData(){
-        return readCsvAsMap();
+    public static Map<UserType, LoginDto> getCsvData(){
+        Map<String, String> data = readCsvAsMap();
+        Map<UserType, LoginDto> returnData = new HashMap<>();
+        for (Map.Entry<String, String> entry : data.entrySet()) {
+            if(!entry.getKey().equalsIgnoreCase("password")){
+                UserType userType = UserType.valueOf(entry.getKey().toUpperCase());
+                returnData.put(userType,
+                        new LoginDto(
+                                entry.getValue(),
+                                data.get("password")
+                        )
+                );
+            }
+        }
+        return returnData;
     }
 }
