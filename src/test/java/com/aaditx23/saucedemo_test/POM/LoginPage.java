@@ -18,16 +18,17 @@ public class LoginPage extends BasePage {
     By loginButton = By.cssSelector("input#login-button");
     By errorContainer = By.cssSelector("div.error-message-container.error");
 
-    public void enterUserName(String username){
+    private void enterUserName(String username){
         driver.findElement(userNameField).sendKeys(username);
     }
-    public void enterPassword(String password){
+    private void enterPassword(String password){
         driver.findElement(passwordField).sendKeys(password);
     }
-    public void clickLogin(){
+    private void clickLogin(){
         driver.findElement(loginButton).click();
     }
     public void login(LoginDto loginDto){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(userNameField));
         enterUserName(loginDto.getUsername());
         enterPassword(loginDto.getPassword());
         clickLogin();

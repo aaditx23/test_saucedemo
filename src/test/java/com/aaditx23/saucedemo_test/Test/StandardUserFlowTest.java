@@ -1,6 +1,7 @@
 package com.aaditx23.saucedemo_test.Test;
 
 import com.aaditx23.saucedemo_test.DTO.LoginDto;
+import com.aaditx23.saucedemo_test.POM.ProductsPage;
 import com.aaditx23.saucedemo_test.Util.UserType;
 import com.aaditx23.saucedemo_test.POM.LoginPage;
 import com.aaditx23.saucedemo_test.Util.CsvReader;
@@ -29,10 +30,14 @@ public class StandardUserFlowTest {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.login(data.get(UserType.STANDARD));
         Assertions.assertFalse(loginPage.hasError());
+
+        ProductsPage productsPage = new ProductsPage(driver);
+        productsPage.addToCart();
+        productsPage.removeFromCart();
     }
 
-    @AfterEach
-    public void teardown(){
-        driver.quit();
-    }
+//    @AfterEach
+//    public void teardown(){
+//        driver.quit();
+//    }
 }
