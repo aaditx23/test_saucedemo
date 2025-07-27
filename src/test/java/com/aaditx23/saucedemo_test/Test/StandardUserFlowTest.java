@@ -1,11 +1,13 @@
 package com.aaditx23.saucedemo_test.Test;
 
 import com.aaditx23.saucedemo_test.DTO.LoginDto;
+import com.aaditx23.saucedemo_test.DTO.UserInfoDto;
+import com.aaditx23.saucedemo_test.POM.CartPage;
+import com.aaditx23.saucedemo_test.POM.CheckoutInformationPage;
 import com.aaditx23.saucedemo_test.POM.ProductsPage;
 import com.aaditx23.saucedemo_test.Util.UserType;
 import com.aaditx23.saucedemo_test.POM.LoginPage;
 import com.aaditx23.saucedemo_test.Util.CsvReader;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,11 +20,13 @@ public class StandardUserFlowTest {
 
     private WebDriver driver;
     private Map<UserType, LoginDto> data;
+    private UserInfoDto info;
 
     @BeforeEach
     public void setup(){
         driver = new FirefoxDriver();
-        data = CsvReader.getCsvData();
+        data = CsvReader.getCredentialsData();
+        info = CsvReader.getInfoData();
     }
 
     @Test
@@ -34,6 +38,16 @@ public class StandardUserFlowTest {
         ProductsPage productsPage = new ProductsPage(driver);
         productsPage.addToCart();
         productsPage.removeFromCart();
+        productsPage.goToCart();
+
+        CartPage cartPage = new CartPage(driver);
+        cartPage.clickCheckout();
+
+        CheckoutInformationPage checkoutInformationPage = new CheckoutInformationPage(driver);
+        checkoutInformationPage.enterInformation(info);
+
+
+
     }
 
 //    @AfterEach

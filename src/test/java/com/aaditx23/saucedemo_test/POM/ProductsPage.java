@@ -1,5 +1,6 @@
 package com.aaditx23.saucedemo_test.POM;
 
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
@@ -13,18 +14,15 @@ public class ProductsPage extends BasePage{
 
     public ProductsPage(WebDriver driver){
         super(driver);
-        waitForPage();
+        waitForPage("products");
 
     }
 
     Random random = new Random();
-    By title = By.cssSelector("div.header_secondary_container > span.title");
     By addToCartButtons = By.cssSelector("button.btn.btn_primary.btn_small.btn_inventory");
     By removeButtons = By.cssSelector("button.btn.btn_secondary.btn_small.btn_inventory");
+    By shoppingCartLink = By.cssSelector("a.shopping_cart_link");
 
-    private void waitForPage(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(title));
-    }
     public void addToCart(){
         randomlyClickButtons(addToCartButtons);
     }
@@ -43,7 +41,6 @@ public class ProductsPage extends BasePage{
 
     private void randomlyClickButtons(By locator){
         int times = generateRandomTimes(locator);
-        System.out.println("Random is: "+times);
         for(int i = 0; i<times; i++){
             List<WebElement> buttons = driver.findElements(locator);
             if(buttons.isEmpty()) break;
@@ -57,6 +54,10 @@ public class ProductsPage extends BasePage{
                 i++;
             }
         }
+    }
+
+    public void goToCart(){
+        driver.findElement(shoppingCartLink).click();
     }
 
 
